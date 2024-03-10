@@ -14,11 +14,19 @@ class ContentCategoryService
             $contentCategories = ContentCategory::all();
 
             return response()->json(
-                $contentCategories
+                [
+                    'message' => 'Content categories retrieved successfully',
+                    'status' => 'true',
+                    'data' => $contentCategories
+                ]
             );
         } catch (\Throwable $th) {
             return response()->json(
-                ['error' => $th->getMessage()], 500
+                [
+                    'message' => 'Failed to retrieve content categories',
+                    'status' => 'false',
+                    'error' => $th->getMessage(),
+                ], 200
             );
         }
     }
@@ -30,11 +38,19 @@ class ContentCategoryService
             $contentCategory = ContentCategory::create($requestData);
 
             return response()->json(
-                $contentCategory, 201
+                [
+                    'message' => 'Content category created successfully',
+                    'status' => 'true',
+                    'data' => $contentCategory
+                ], 201
             );
         } catch (\Throwable $th) {
             return response()->json(
-                ['error' => $th->getMessage()], 500
+                [
+                    'message' => 'Failed to create content category',
+                    'status' => 'false',
+                    'error' => $th->getMessage(),
+                ], 500
             );
         }
     }
@@ -47,11 +63,19 @@ class ContentCategoryService
             $contentCategory->update($request->all());
 
             return response()->json(
-                $contentCategory
+                [
+                    'message' => 'Content category updated successfully',
+                    'status' => 'true',
+                    'data' => $contentCategory
+                ], 200
             );
         } catch (\Throwable $th) {
             return response()->json(
-                ['error' => $th->getMessage()], 500
+                [
+                    'message' => 'Failed to update content category',
+                    'status' => 'false',
+                    'error' => $th->getMessage()
+                ], 500
             );
         }
     }
@@ -64,11 +88,18 @@ class ContentCategoryService
             $contentCategory->delete();
 
             return response()->json(
-                ['message' => 'Content category deleted successfully']
+                [
+                    'message' => 'Content category deleted successfully',
+                    'status' => 'true',
+                ], 204
             );
         } catch (\Throwable $th) {
             return response()->json(
-                ['error' => $th->getMessage()], 500
+                [
+                    'message' => 'Failed to delete content category',
+                    'status' => 'false',
+                    'error' => $th->getMessage(),
+                ], 500
             );
         }
     }
