@@ -13,34 +13,36 @@ class ArticleService{
             $article = Article::orderBy('id', 'asc')->get();
             return response()->json([
                 'status'=>'true',
-                'message'=>'article ditemukan',
+                'message'=>'All article found',
                 'data' => $article
             ],200);
         } catch (\Throwable $th){
             return response()->json([
                 'status' => 'false',
+                'message' => 'failed to get All Article',
                 'error' => $th->getMessage()], 500);
         }
 
     }
 
-    public function show(string $id){
+    public function getArticleById(string $id){
         try{
             $data=Article::findOrFail($id);
             return response()->json([
                 'status'=>'true',
-                'message'=>'article ditemukan',
+                'message'=>'article found',
                 'data'=>$data
             ],200);
         }catch (\Throwable $th){
             return response()->json([
                 'status' => 'false',
+                'message' => 'article not found',
                 'error' => $th->getMessage()], 500);
         }
 
     }
 
-    public static function postCreateArticle(Request $req)
+    public static function createArticle(Request $req)
     {
         try {
             $article = new Article;
@@ -54,17 +56,18 @@ class ArticleService{
             $article->save();
             return response()->json([
                 'status' => 'true',
-                'message' => 'Data berhasil ditambahkan',
+                'message' => 'Article successfully created',
                 'data' => $article
             ],200);
         } catch (\Throwable $th){
             return response()->json([
                 'status' => 'false',
+                'message' => 'create article failed',
                 'error' => $th->getMessage()], 500);
         }
     }
 
-    public static function putUpdateArticle(Request $req, string $id)
+    public static function updateArticle(Request $req, string $id)
     {
         try {
             $article = Article::findorFail($id);
@@ -78,11 +81,13 @@ class ArticleService{
             $article->save();
             return response()->json([
                 'status'=>'true',
-                'message'=>'berhasil malakukan update data',
+                'message'=>'article successfully updated',
+                'data' => $article
             ],200);
         } catch (\Throwable $th){
             return response()->json([
                 'status' => 'false',
+                'message' => 'update article failed',
                 'error' => $th->getMessage()
             ], 500);
         }
@@ -95,11 +100,12 @@ class ArticleService{
             $article->delete();
             return response()->json([
                 'status' => 'true',
-                'message' => 'article dihapus'
+                'message' => 'article deleted'
             ], 200);
         } catch (\Throwable $th){
             return response()->json([
                 'status' => 'false',
+                'message' => 'delete article failed',
                 'error' => $th->getMessage()], 500);
         }
     }
