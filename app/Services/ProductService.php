@@ -5,6 +5,7 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Product;
+use App\Models\Sinta_Daftar_Author;
 
 class ProductService{
 
@@ -66,8 +67,8 @@ class ProductService{
                             'cover'             => $request->cover
 
                         ]);
-            $value = DB::table('sinta_daftar_authors')
-                ->join('products', 'sinta_daftar_authors.id_author', '=' , 'products.grant_id')
+            $value = DB::table('sinta_daftar_author')
+                ->join('products', 'sinta_daftar_author.id_author', '=' , 'products.grant_id')
                 ->select('products.*')
                 ->get();
             return response()->json([
