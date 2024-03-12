@@ -5,13 +5,15 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Models\Product;
-use App\Models\Sinta_Daftar_Author;
-
+use Closure;
+use Illuminate\Support\Facades\DB;
+use App\Models\SintaDaftarAuthor;
 class ProductService{
 
-    public function getAllProduct(Request $request){
+    public function getAllProduct(){
         try {
-            $product = Product::all();
+
+            $product = Product::with('grant')->get();
 
             return response()->json(
                 [
@@ -34,7 +36,7 @@ class ProductService{
     public function insertProduct(Request $request){
 
         try{
-            $validator = Validator::make($request->all(), [
+            $request->validate([
                 'grant_id'          =>  'required',
                 'id_grant_category' =>  'required',
                 'category'          =>
@@ -52,42 +54,37 @@ class ProductService{
                 'cover'             => 'required|url'
             ]);
 
+            Product::create([
+                'grant_id'          => $request->grant_id,
+                'id_grant_category' => $request->id_grant_category,
+                'category'          => $request->category,
+                'tkt'               => $request->tkt,
+                'year'              => $request->year,
+                'description'       => $request->description,
+                'cover'             => $request->cover
 
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 422);
-            }
+            ]);
 
-            $product =  Product::create([
-                            'grant_id'          => $request->grant_id,
-                            'id_grant_category' => $request->id_grant_category,
-                            'category'          => $request->category,
-                            'tkt'               => $request->tkt,
-                            'year'              => $request->year,
-                            'description'       => $request->description,
-                            'cover'             => $request->cover
-
-                        ]);
-            $value = DB::table('sinta_daftar_author')
-                ->join('products', 'sinta_daftar_author.id_author', '=' , 'products.grant_id')
+            DB::table('sintadaftarauthor')
+                ->join('products', 'sintadaftarauthor.id_author', '=' , 'products.grant_id')
                 ->select('products.*')
                 ->get();
             return response()->json([
-                'status' => 'true',
                 'message' => 'product added successfully',
-                'data' => $value
+                'status' => 'true',
             ],200);
 
         } catch (\Throwable $e){
             return response()->json([
-                'status' => 'false',
                 'message' => 'failed to add the product',
+                'status' => 'false',
                 'error' => $e->getMessage()], 500);
         }
     }
 
     public function updateProduct(Request $request,$id_product){
         try {
-            $validator = Validator::make($request->all(), [
+            $request->validate([
                 'grant_id'          =>  'required',
                 'id_grant_category' =>  'required',
                 'category'          =>
@@ -105,10 +102,6 @@ class ProductService{
                 'cover'             => 'required|url'
             ]);
 
-
-            if ($validator->fails()) {
-                return response()->json($validator->errors(), 422);
-            }
             $product = Product::findOrFail($id_product);
             $product->update([
                 'grant_id'          => $request->grant_id,
@@ -120,33 +113,31 @@ class ProductService{
                 'cover'             => $request->cover
             ]);
             return response()->json([
-                'status' => 'true',
                 'message' => 'product updated successfully',
-                'data' => $product
+                'status' => 'true',
             ],200);
 
         } catch (\Throwable $e){
             return response()->json([
-                'status' => 'false',
                 'message' => 'failed to update the product',
+                'status' => 'false',
                 'error' => $e->getMessage()], 500);
         }
     }
 
-    public static function deleteProduct(Request $req, $id)
+    public function deleteProduct($id_product)
     {
         try {
-            $product = Product::findOrFail($id);
+            $product = Product::findOrFail($id_product);
             $product->delete();
             return response()->json([
-                'status' => 'true',
                 'message' => 'product deleted successfully',
-                'data' => $product
+                'status' => 'true',
             ], 202);
         } catch (\Throwable $e){
             return response()->json([
-                'status' => 'false',
                 'message' => 'failed to delete the product',
+                'status' => 'false',
                 'error' => $e->getMessage()], 404);
         }
     }
