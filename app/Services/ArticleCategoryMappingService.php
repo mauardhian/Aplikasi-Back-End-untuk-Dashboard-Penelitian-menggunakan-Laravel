@@ -14,7 +14,7 @@ class ArticleCategoryMappingService{
             return response()->json(
                 [
                     'message' => 'Article category mapping retrieved successfully',
-                    'status' => 'true',
+                    'status' => true,
                     'data' => $articleCategoryMapping
                 ]
             );
@@ -22,7 +22,7 @@ class ArticleCategoryMappingService{
             return response()->json(
                 [
                     'message' => 'Failed to retrieve article category mapping',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $th->getMessage(),
                 ], 200
             );
@@ -38,7 +38,7 @@ class ArticleCategoryMappingService{
             return response()->json(
                 [
                     'message' => 'Article category mapping created successfully',
-                    'status' => 'true',
+                    'status' => true,
                     'data' => $articleCategoryMapping
                 ], 201
             );
@@ -46,7 +46,7 @@ class ArticleCategoryMappingService{
             return response()->json(
                 [
                     'message' => 'Failed to create article category mapping',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $th->getMessage(),
                 ], 500
             );
@@ -63,7 +63,7 @@ class ArticleCategoryMappingService{
             return response()->json(
                 [
                     'message' => 'Article category mapping updated successfully',
-                    'status' => 'true',
+                    'status' => true,
                     'data' => $articleCategoryMapping
                 ], 200
             );
@@ -71,7 +71,7 @@ class ArticleCategoryMappingService{
             return response()->json(
                 [
                     'message' => 'Failed to update article category mapping',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $th->getMessage()
                 ], 500
             );
@@ -88,14 +88,14 @@ class ArticleCategoryMappingService{
             return response()->json(
                 [
                     'message' => 'Article category mapping deleted successfully',
-                    'status' => 'true',
+                    'status' => true,
                 ], 204
             );
         } catch (\Throwable $th) {
             return response()->json(
                 [
                     'message' => 'Failed to delete article category mapping',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $th->getMessage(),
                 ], 500
             );
