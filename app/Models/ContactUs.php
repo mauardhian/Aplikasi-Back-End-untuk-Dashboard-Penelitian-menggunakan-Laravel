@@ -10,7 +10,7 @@ class ContactUs extends Model
     use HasFactory;
 
     protected $primaryKey = 'id';
-    protected $table = 'contactus';
+    protected $table = 'contact_us';
     protected $fillable = [
         'input_date',
         'sender_name',
