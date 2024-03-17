@@ -3,27 +3,26 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Models\ContentCategory;
-use Illuminate\Support\Facades\Http;
+use App\Models\UserPriviledge;
 
-class ContentCategoryService
+class UserPriviledgeService
 {
-    public static function getAllContentCategories(Request $request)
+    public static function getAllUserPriviledge(Request $request)
     {
         try {
-            $contentCategories = ContentCategory::all();
+            $userPriviledge = UserPriviledge::all();
 
             return response()->json(
                 [
-                    'message' => 'Content categories retrieved successfully',
+                    'message' => 'User priviledge retrieved successfully',
                     'status' => true,
-                    'data' => $contentCategories
+                    'data' => $userPriviledge
                 ], 200
             );
         } catch (\Throwable $th) {
             return response()->json(
                 [
-                    'message' => 'Failed to retrieve content categories',
+                    'message' => 'Failed to retrieve user priviledge',
                     'status' => false,
                     'error' => $th->getMessage(),
                 ], 200
@@ -31,23 +30,48 @@ class ContentCategoryService
         }
     }
 
-    public static function createContentCategory(Request $request)
+    public static function createUserPriviledge(Request $request)
     {
         try {
             $requestData = $request->all();
-            $contentCategory = ContentCategory::create($requestData);
+            $userPriviledge = UserPriviledge::create($requestData);
 
             return response()->json(
                 [
-                    'message' => 'Content category created successfully',
+                    'message' => 'User priviledge created successfully',
                     'status' => true,
-                    'data' => $contentCategory
+                    'data' => $userPriviledge
                 ], 201
             );
         } catch (\Throwable $th) {
             return response()->json(
                 [
-                    'message' => 'Failed to create content category',
+                    'message' => 'Failed to create user priviledge',
+                    'status' => false,
+                    'error' => $th->getMessage(),
+                ], 500
+            );
+        }
+    }
+    
+    public static function updateUserPriviledge(Request $request)
+    {
+        try {
+            $id = $request->input('id');
+            $userPriviledge = UserPriviledge::findOrFail($id);
+            $userPriviledge->update($request->all());
+
+            return response()->json(
+                [
+                    'message' => 'User priviledge updated successfully',
+                    'status' => true,
+                    'data' => $userPriviledge
+                ], 200
+            );
+        } catch (\Throwable $th) {
+            return response()->json(
+                [
+                    'message' => 'Failed to update user priviledge',
                     'status' => false,
                     'error' => $th->getMessage(),
                 ], 500
@@ -55,48 +79,24 @@ class ContentCategoryService
         }
     }
 
-    public static function updateContentCategory(Request $request)
+    public static function deleteUserPriviledge(Request $request)
     {
         try {
             $id = $request->input('id');
-            $contentCategory = ContentCategory::findOrFail($id);
-            $contentCategory->update($request->all());
+            $userPriviledge = UserPriviledge::findOrFail($id);
+            $userPriviledge->delete();
 
             return response()->json(
                 [
-                    'message' => 'Content category updated successfully',
+                    'message' => 'User priviledge deleted successfully',
                     'status' => true,
-                    'data' => $contentCategory
+                    'data' => $userPriviledge
                 ], 200
             );
         } catch (\Throwable $th) {
             return response()->json(
                 [
-                    'message' => 'Failed to update content category',
-                    'status' => false,
-                    'error' => $th->getMessage()
-                ], 500
-            );
-        }
-    }
-
-    public static function deleteContentCategory(Request $request)
-    {
-        try {
-            $id = $request->input('id');
-            $contentCategory = ContentCategory::findOrFail($id);
-            $contentCategory->delete();
-
-            return response()->json(
-                [
-                    'message' => 'Content category deleted successfully',
-                    'status' => true,
-                ], 200
-            );
-        } catch (\Throwable $th) {
-            return response()->json(
-                [
-                    'message' => 'Failed to delete content category',
+                    'message' => 'Failed to delete user priviledge',
                     'status' => false,
                     'error' => $th->getMessage(),
                 ], 500
