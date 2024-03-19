@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Models\Article;
 
 class ArticleService{
     public function getAllArticle()
@@ -12,35 +13,37 @@ class ArticleService{
         try {
             $article = Article::orderBy('id', 'asc')->get();
             return response()->json([
-                'status'=>'true',
-                'message'=>'article ditemukan',
+                'status'=>true,
+                'message'=>'All article found',
                 'data' => $article
             ],200);
         } catch (\Throwable $th){
             return response()->json([
-                'status' => 'false',
+                'status' => false,
+                'message' => 'failed to get All Article',
                 'error' => $th->getMessage()], 500);
         }
 
     }
 
-    public function show(string $id){
+    public function getArticleById(string $id){
         try{
             $data=Article::findOrFail($id);
             return response()->json([
-                'status'=>'true',
-                'message'=>'article ditemukan',
+                'status'=>true,
+                'message'=>'article found',
                 'data'=>$data
             ],200);
         }catch (\Throwable $th){
             return response()->json([
-                'status' => 'false',
+                'status' => false,
+                'message' => 'article not found',
                 'error' => $th->getMessage()], 500);
         }
 
     }
 
-    public static function postCreateArticle(Request $req)
+    public static function createArticle(Request $req)
     {
         try {
             $article = new Article;
@@ -53,18 +56,19 @@ class ArticleService{
 
             $article->save();
             return response()->json([
-                'status' => 'true',
-                'message' => 'Data berhasil ditambahkan',
+                'status' => true,
+                'message' => 'Article successfully created',
                 'data' => $article
             ],200);
         } catch (\Throwable $th){
             return response()->json([
-                'status' => 'false',
+                'status' => false,
+                'message' => 'create article failed',
                 'error' => $th->getMessage()], 500);
         }
     }
 
-    public static function putUpdateArticle(Request $req, string $id)
+    public static function updateArticle(Request $req, string $id)
     {
         try {
             $article = Article::findorFail($id);
@@ -77,12 +81,14 @@ class ArticleService{
 
             $article->save();
             return response()->json([
-                'status'=>'true',
-                'message'=>'berhasil malakukan update data',
+                'status'=>true,
+                'message'=>'article successfully updated',
+                'data' => $article
             ],200);
         } catch (\Throwable $th){
             return response()->json([
-                'status' => 'false',
+                'status' =>false,
+                'message' => 'update article failed',
                 'error' => $th->getMessage()
             ], 500);
         }
@@ -94,12 +100,13 @@ class ArticleService{
             $article = Article::findorFail($id);
             $article->delete();
             return response()->json([
-                'status' => 'true',
-                'message' => 'article dihapus'
+                'status' => true,
+                'message' => 'article deleted'
             ], 200);
         } catch (\Throwable $th){
             return response()->json([
-                'status' => 'false',
+                'status' =>false,
+                'message' => 'delete article failed',
                 'error' => $th->getMessage()], 500);
         }
     }
