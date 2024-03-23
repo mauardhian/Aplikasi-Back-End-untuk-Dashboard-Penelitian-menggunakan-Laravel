@@ -9,6 +9,7 @@ class ViewerPage extends Model
 {
     use HasFactory;
 
+    protected $table = 'viewer_page';
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';    
     protected $fillable = 
