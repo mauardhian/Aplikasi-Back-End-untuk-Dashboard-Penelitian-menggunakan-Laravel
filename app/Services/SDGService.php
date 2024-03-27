@@ -15,7 +15,7 @@ class SDGService{
             return response()->json(
                 [
                     'message' => 'SDG retrieved successfully',
-                    'status' => 'true',
+                    'status' => true,
                     'data' => $sdg
                 ]
             );
@@ -23,7 +23,7 @@ class SDGService{
             return response()->json(
                 [
                     'message' => 'Failed to retrieve SDG',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $e->getMessage(),
                 ], 200
             );
@@ -43,13 +43,13 @@ class SDGService{
 
             return response()->json([
                 'message' => 'SDG added successfully',
-                'status' => 'true',
+                'status' => true,
             ],200);
 
         } catch (\Throwable $e){
             return response()->json([
                 'message' => 'failed to add the SDG',
-                'status' => 'false',
+                'status' => false,
                 'error' => $e->getMessage()], 500);
         }
     }
@@ -67,13 +67,13 @@ class SDGService{
 
             return response()->json([
                 'message' => 'SDG updated successfully',
-                'status' => 'true',
+                'status' => true,
             ],200);
 
         } catch (\Throwable $e){
             return response()->json([
                 'message' => 'failed to update the SDG',
-                'status' => 'false',
+                'status' => false,
                 'error' => $e->getMessage()], 500);
         }
     }
@@ -85,12 +85,12 @@ class SDGService{
             $sdg->delete();
             return response()->json([
                 'message' => 'SDG deleted successfully',
-                'status' => 'true',
+                'status' => true,
             ], 202);
         } catch (\Throwable $e){
             return response()->json([
                 'message' => 'failed to delete the SDG',
-                'status' => 'false',
+                'status' => false,
                 'error' => $e->getMessage()], 404);
         }
     }
