@@ -11,12 +11,12 @@ class ViewerPage extends Model
 
     protected $table = 'viewer_page';
     const CREATED_AT = 'created_at';
-    const UPDATED_AT = 'updated_at';    
-    protected $fillable = 
-    [
+    const UPDATED_AT = 'updated_at';
+
+    protected $fillable = [
         'id',
         'id_page',
-        'acces_date'
+        'acces_date',
     ];
 
 }

@@ -20,13 +20,11 @@ class ViewerPageService extends Controller
             'acces_date' => 'required'
         ]);
 
-        $request = ViewerPage::updateorcreate($validated);
+        $validated = ViewerPage::updateorcreate($validated);
 
-        // return $request;
         return response()->json([
             'message' => 'Viewer page create successfully',
             'status' => true,
-            'data' => $request
         ],200
         );
        }
@@ -43,13 +41,12 @@ class ViewerPageService extends Controller
     public static function ReadViewerPage (Request $request)
     {
         try{
-            $request = ViewerPage::all();
+            $read = ViewerPage::all();
 
-            // return $request;
             return response()->json([
                 'message' => 'Viewer page retrieved successfully',
                 'status' => true,
-                'data' => $request
+                'data' => $read
             ],200
             );        
         }
@@ -72,13 +69,12 @@ class ViewerPageService extends Controller
                 'acces_date' => 'required'
             ]);
     
-            $request = ViewerPage::updateorcreate($validated);
+            $validated = ViewerPage::updateorcreate($validated);
     
             // return $request;
             return response()->json([
                 'message' => 'Viewer page update successfully',
                 'status' => true,
-                'data' => $request
             ],200
             );  
         }
@@ -95,17 +91,16 @@ class ViewerPageService extends Controller
     public static function DeleteViewerPage (Request $request)
     {
         try{
-            $request = $request->validate([
+            $delete = $request->validate([
                 'id' => 'required'
             ]);
-            $find = ViewerPage::where($request)->delete();
+            $delete = ViewerPage::where($delete)->delete();
             // $delete = ViewerPage::$find()->delete();
     
             // return $request;
             return response()->json([
                 'message' => 'Viewer page delete successfully',
                 'status' => true,
-                'data' => $request
             ],200
             );          }
         catch (\Throwable $th){
