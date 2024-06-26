@@ -26,6 +26,29 @@ class ArticleService{
 
     }
 
+    public function GetPaginationArticle(){
+        try {
+
+            $article = Article::orderBy('id', 'asc')->paginate();
+
+            return response()->json(
+                [
+                    'message' => 'article retrieved successfully',
+                    'status' => true,
+                    'data' => $article
+                ]
+            );
+        } catch (\Throwable $e) {
+            return response()->json(
+                [
+                    'message' => 'Failed to retrieve article',
+                    'status' => false,
+                    'error' => $e->getMessage(),
+                ], 200
+            );
+        }
+    }
+
     public function getArticleById(string $id){
         try{
             $data=Article::findOrFail($id);
