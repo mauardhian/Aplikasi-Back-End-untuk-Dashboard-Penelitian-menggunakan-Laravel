@@ -105,7 +105,7 @@ class ProductService{
         }
     }
 
-    public function updateProduct(Request $request,$id_product){
+    public static function updateProduct(Request $request,$id_product){
         try {
             $request->validate([
                 'grant_id'          =>  'required',
@@ -148,7 +148,7 @@ class ProductService{
         }
     }
 
-    public function deleteProduct($id_product)
+    public static function deleteProduct($id_product)
     {
         try {
             $product = Product::findOrFail($id_product);

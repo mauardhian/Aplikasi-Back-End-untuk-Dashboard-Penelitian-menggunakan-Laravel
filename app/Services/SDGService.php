@@ -54,7 +54,7 @@ class SDGService{
         }
     }
 
-    public function updateSDG(Request $request,$id){
+    public static function updateSDG(Request $request,$id){
         try {
             $request->validate([
                 'name'          =>  'required',
@@ -78,7 +78,7 @@ class SDGService{
         }
     }
 
-    public function deleteSDG($id)
+    public static function deleteSDG($id)
     {
         try {
             $sdg = SDG::findOrFail($id);

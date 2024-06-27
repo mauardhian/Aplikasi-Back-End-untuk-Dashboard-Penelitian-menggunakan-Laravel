@@ -58,7 +58,7 @@ class GrantSDGService{
         }
     }
 
-    public function updateGrantSDG(Request $request,$id){
+    public static function updateGrantSDG(Request $request,$id){
         try {
             $request->validate([
                 'id_grant_category'     =>  'required',
@@ -85,7 +85,7 @@ class GrantSDGService{
         }
     }
 
-    public function deleteGrantSDG($id)
+    public static function deleteGrantSDG($id)
     {
         try {
             $grantsdg = GrantSDG::findOrFail($id);
