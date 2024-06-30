@@ -72,7 +72,7 @@ class ProductService{
         }
     }
 
-    public function updateContactUs(Request $request,$id){
+    public static function updateContactUs(Request $request,$id){
         try
         {
             $request->validate([
@@ -114,7 +114,7 @@ class ProductService{
         }
     }
 
-    public function deleteContactUs($id)
+    public static function deleteContactUs($id)
     {
         try {
             $contactus = ContactUs::findOrFail($id);
