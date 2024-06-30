@@ -13,13 +13,11 @@ class ResearchDocService
     public static function getAuthorResearchDoc(Request $request) 
     {
         $http = new \GuzzleHttp\Client;		
-        $token = LoginSintaService::LoginSinta($request);
-        // $data = ScopusDoc::all();
-        // return $token;die;
-        $baseUrl     = config('app.guzzle_test_url').'/v3/';
+        $token = loginSintaService::LoginSinta($request);
+
+        $baseUrl = config('app.guzzle_test_url') . '/v3/';
         $author = 'author';
-        $research= 'research';
-        // $endpoint = "authors";
+        $research = 'research';
 
         $env = 'dev';
         $uniq = '271071775';
@@ -29,51 +27,53 @@ class ResearchDocService
         $url = "{$baseUrl}{$env}/{$uniq}/{$author}/{$research}/{$type}/{$id}";
 
         $users = $http->request('POST', $url, [
-			'headers' => [
-				'Authorization' => 	'Bearer '.$token					
-			]
-		]);
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token					
+            ]
+        ]);
 
-		//Untuk mendapatkan kode PP
-		$data = json_decode($users->getBody(), true);
-        $author = $data['results']['authors'];    
+        $data = json_decode($users->getBody(), true);
         $documents = $data['results']['documents'];
         
-        return $data;die;
-
         foreach ($documents as $full) {
-            $criteria = [
-                'id_research' => (int) $full['id'] ?? NULL
-            ];
-            $create = ResearchDoc::updateorcreate(
+            ResearchDoc::updateOrCreate(
             [
+                'id_research' => (int) $full['id'] ?? NULL,
                 'id_author' => (int) $full['id'] ?? NULL,
                 'id_member_research' => (int) $full['id'] ?? NULL,
                 'leader' => (int) $full['id'] ?? NULL,
                 'leader_Nidn' => (int) $full['id'] ?? NULL,
-                'title' => (int) $full['id'] ?? NULL,
-                'first_Proposed_Year' => (int) $full['id'] ?? NULL,
-                'proposed_Year' => (int) $full['id'] ?? NULL,
-                'implementation_Year' => (int) $full['id'] ?? NULL,
-                'focus' => (int) $full['id'] ?? NULL,
-                'funds_Approved' => (int) $full['id'] ?? NULL,
-                'scheme' => (int) $full['id'] ?? NULL,
-                'abbrev' => (int) $full['id'] ?? NULL,
-                'partner_leader_name' => (int) $full['id'] ?? NULL,
-                'partner_member1' => (int) $full['id'] ?? NULL,
-                'partner_member2' => (int) $full['id'] ?? NULL,
-                'partner_member3' => (int) $full['id'] ?? NULL,
-                'partner_member4' => (int) $full['id'] ?? NULL,
-                'student_thesis_title' => (int) $full['id'] ?? NULL,
-                'subject_title' => (int) $full['id'] ?? NULL,
-                'funds_total' => (int) $full['id'] ?? NULL,
-                'funds_category' => (int) $full['id'] ?? NULL,
-                'tkt' => (int) $full['id'] ?? NULL,
-                'sdgs_id' => (int) $full['id'] ?? NULL
+                'title' => $full['title'] ?? NULL,
+                'first_Proposed_Year' => (int) $full['first_Proposed_Year'] ?? NULL,
+                'proposed_Year' => (int) $full['proposed_Year'] ?? NULL,
+                'implementation_Year' => (int) $full['implementation_Year'] ?? NULL,
+                'focus' => $full['focus'] ?? NULL,
+                'funds_Approved' => (int) $full['funds_Approved'] ?? NULL,
+                'scheme' => $full['scheme'] ?? NULL,
+                'abbrev' => $full['abbrev'] ?? NULL,
+                'partner_leader_name' => $full['partner_leader_name'] ?? NULL,
+                'partner_member1' => $full['partner_member1'] ?? NULL,
+                'partner_member2' => $full['partner_member2'] ?? NULL,
+                'partner_member3' => $full['partner_member3'] ?? NULL,
+                'partner_member4' => $full['partner_member4'] ?? NULL,
+                'student_thesis_title' => $full['student_thesis_title'] ?? NULL,
+                'subject_title' => $full['subject_title'] ?? NULL,
+                'funds_total' => (int) $full['funds_total'] ?? NULL,
+                'funds_category' => $full['funds_category'] ?? NULL,
+                'tkt' => (int) $full['tkt'] ?? NULL,
+                'sdgs_id' => (int) $full['sdgs_id'] ?? NULL
+
             ]);
         }
 
         return $data;
+    }
 
+    public static function getPaginateResearchDoc()
+    {
+        $perPage = 10; // Jumlah item per halaman
+        $researchDocs = ResearchDoc::paginate($perPage);
+
+        return $researchDocs;
     }
 }
