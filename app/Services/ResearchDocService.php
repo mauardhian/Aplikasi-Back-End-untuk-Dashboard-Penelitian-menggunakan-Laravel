@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Services;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use League\CommonMark\Node\Block\Document;
+use Illuminate\Support\Facades\Http;
 use App\Models\Doc\ResearchDoc;
 use App\Services\loginSintaService;
 
@@ -61,6 +62,7 @@ class ResearchDocService
                 'funds_category' => $full['funds_category'] ?? NULL,
                 'tkt' => (int) $full['tkt'] ?? NULL,
                 'sdgs_id' => (int) $full['sdgs_id'] ?? NULL
+
             ]);
         }
 

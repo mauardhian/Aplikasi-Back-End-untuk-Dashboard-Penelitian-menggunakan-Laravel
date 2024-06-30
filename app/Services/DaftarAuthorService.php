@@ -31,6 +31,7 @@ class DaftarAuthorService
         
         foreach ($authors as $full) {
             SintaDaftarAuthor::updateOrCreate(
+
             [
                 'id_master' => $full['id'] ?? NULL,
                 'NIDN' => $full['NIDN'] ?? NULL,
@@ -52,7 +53,7 @@ class DaftarAuthorService
 
         return $data;
     }
-
+              
     public static function getPaginateDaftarAuthor()
     {
         $perPage = 10; // Jumlah item per halaman
