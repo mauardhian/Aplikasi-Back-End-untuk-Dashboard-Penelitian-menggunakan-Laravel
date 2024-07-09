@@ -1,33 +1,36 @@
 <?php
 
-namespace App\Services;
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UserPriviledge;
+use App\Models\User;
 
-class UserPriviledgeService extends Controller
+class UserService extends Controller
 {
     
-    public static function CreateUserPriviledge (Request $request)
+    public static function CreateUser (Request $request)
     {
        try{
         $create = $request->validate([
             'id' => 'required',
-            'name' => 'required',
+            'id_author' => 'required',
+            'username' => 'required',
+            'pass' => 'required',
+            'full_name' => 'required',
+            'email' => 'required'
         ]);
 
-        $create = UserPriviledge::create($create);
+        $create = User::create($create);
 
         return response()->json([
-            'message' => 'User Priviledge  create successfully',
+            'message' => 'User create successfully',
             'status' => true,
         ],200
         );
        }
        catch (\Throwable $th){
         return response()->json([
-            'message' => 'Failed to create User Priviledge  ',
+            'message' => 'Failed to create User',
             'status' => false,
             'error' => $th->getMessage(),
         ],500
@@ -35,13 +38,13 @@ class UserPriviledgeService extends Controller
         } 
     }
 
-    public static function ReadUserPriviledge (Request $request)
+    public static function ReadUser (Request $request)
     {
         try{
-            $read = UserPriviledge::all();
+            $read = User::all();
 
             return response()->json([
-                'message' => 'User priviledge retrieved successfully',
+                'message' => 'User retrieved successfully',
                 'status' => true,
                 'data' => $read
             ],200
@@ -57,26 +60,30 @@ class UserPriviledgeService extends Controller
             } 
     }
 
-    public static function UpdateUserPriviledge (Request $request)
+    public static function UpdateUser (Request $request)
     {
         try{
             $validated = $request->validate([
                 'id' => 'required',
-                'name' => 'required',
+                'id_author' => 'required',
+                'username' => 'required',
+                'pass' => 'required',
+                'full_name' => 'required',
+                'email' => 'required'
             ]);
     
-            $validated = UserPriviledge::updateorcreate($validated);
+            $validated = User::updateorcreate($validated);
     
             // return $request;
             return response()->json([
-                'message' => 'User Priviledge  update successfully',
+                'message' => 'User update successfully',
                 'status' => true,
             ],200
             );  
         }
         catch (\Throwable $th){
             return response()->json([
-                'message' => 'Failed to update User Priviledge  ',
+                'message' => 'Failed to update User',
                 'status' => false,
                 'error' => $th->getMessage(),
             ],500
@@ -84,23 +91,23 @@ class UserPriviledgeService extends Controller
         }
     }
 
-    public static function DeleteUserPriviledge (Request $request)
+    public static function DeleteUser (Request $request)
     {
         try{
             $delete = $request->validate([
                 'id' => 'required'
             ]);
-            $delete = UserPriviledge::where($delete)->delete();
+            $delete = User::where($delete)->delete();
     
             // return $request;
             return response()->json([
-                'message' => 'User Priviledge  delete successfully',
+                'message' => 'User delete successfully',
                 'status' => true,
             ],200
             );          }
         catch (\Throwable $th){
             return response()->json([
-                'message' => 'Failed to delete User Priviledge  ',
+                'message' => 'Failed to delete User',
                 'status' => false,
                 'error' => $th->getMessage(),
             ],500
