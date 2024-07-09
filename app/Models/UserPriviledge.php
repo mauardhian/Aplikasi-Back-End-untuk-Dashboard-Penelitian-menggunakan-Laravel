@@ -11,6 +11,7 @@ class UserPriviledge extends Model
 
     // Tabel User_Priviledge
     // protected $connection =
+
     protected $table = 'user_priviledge';
     public $timestamps = false;
     // const CREATED_AT = 'created_at';
@@ -22,5 +23,4 @@ class UserPriviledge extends Model
         'id',
         'name',
     ];
-
 }

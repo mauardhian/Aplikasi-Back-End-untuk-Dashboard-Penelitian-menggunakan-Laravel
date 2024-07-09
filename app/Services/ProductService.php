@@ -33,6 +33,29 @@ class ProductService{
         }
     }
 
+    public function GetPaginationProduct (){
+        try {
+
+            $product = Product::with('grant')->paginate();
+
+            return response()->json(
+                [
+                    'message' => 'product retrieved successfully',
+                    'status' => true,
+                    'data' => $product
+                ]
+            );
+        } catch (\Throwable $e) {
+            return response()->json(
+                [
+                    'message' => 'Failed to retrieve product',
+                    'status' => false,
+                    'error' => $e->getMessage(),
+                ], 200
+            );
+        }
+    }
+
     public function insertProduct(Request $request){
 
         try{
@@ -82,7 +105,7 @@ class ProductService{
         }
     }
 
-    public function updateProduct(Request $request,$id_product){
+    public static function updateProduct(Request $request,$id_product){
         try {
             $request->validate([
                 'grant_id'          =>  'required',
@@ -125,7 +148,7 @@ class ProductService{
         }
     }
 
-    public function deleteProduct($id_product)
+    public static function deleteProduct($id_product)
     {
         try {
             $product = Product::findOrFail($id_product);

@@ -16,15 +16,15 @@ class ContentCategoryService
             return response()->json(
                 [
                     'message' => 'Content categories retrieved successfully',
-                    'status' => 'true',
+                    'status' => true,
                     'data' => $contentCategories
-                ]
+                ], 200
             );
         } catch (\Throwable $th) {
             return response()->json(
                 [
                     'message' => 'Failed to retrieve content categories',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $th->getMessage(),
                 ], 200
             );
@@ -40,7 +40,7 @@ class ContentCategoryService
             return response()->json(
                 [
                     'message' => 'Content category created successfully',
-                    'status' => 'true',
+                    'status' => true,
                     'data' => $contentCategory
                 ], 201
             );
@@ -48,7 +48,7 @@ class ContentCategoryService
             return response()->json(
                 [
                     'message' => 'Failed to create content category',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $th->getMessage(),
                 ], 500
             );
@@ -65,7 +65,7 @@ class ContentCategoryService
             return response()->json(
                 [
                     'message' => 'Content category updated successfully',
-                    'status' => 'true',
+                    'status' => true,
                     'data' => $contentCategory
                 ], 200
             );
@@ -73,7 +73,7 @@ class ContentCategoryService
             return response()->json(
                 [
                     'message' => 'Failed to update content category',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $th->getMessage()
                 ], 500
             );
@@ -90,14 +90,14 @@ class ContentCategoryService
             return response()->json(
                 [
                     'message' => 'Content category deleted successfully',
-                    'status' => 'true',
-                ], 204
+                    'status' => true,
+                ], 200
             );
         } catch (\Throwable $th) {
             return response()->json(
                 [
                     'message' => 'Failed to delete content category',
-                    'status' => 'false',
+                    'status' => false,
                     'error' => $th->getMessage(),
                 ], 500
             );

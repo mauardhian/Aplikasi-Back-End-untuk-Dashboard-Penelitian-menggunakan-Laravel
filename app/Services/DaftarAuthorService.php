@@ -4,46 +4,34 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
-use League\CommonMark\Node\Block\Document;
-use Illuminate\Support\Facades\Http;
 use App\Services\loginSintaService;
-use App\Models\sinta_daftar_author;
-
+use App\Models\SintaDaftarAuthor;
 
 class DaftarAuthorService
 {
-   public static function GetDaftarAuthor(Request $request)
+    public static function GetDaftarAuthor(Request $request)
     {
         $http = new \GuzzleHttp\Client;		
         $token = loginSintaService::LoginSinta($request);
-        // $data = ScopusDoc::all();
-        // return $token;die;
-        $baseUrl     = config('app.guzzle_test_url').'/v3/';
-        // $author = 'author';
-        $endpoint = 'authors';
 
+        $baseUrl = config('app.guzzle_test_url') . '/v3/';
+        $endpoint = 'authors';
         $env = 'dev';
         $uniq = '271071775';
-        // $type = 'nidn';
-        // $id = '0414098606';
-
         $url = "{$baseUrl}{$env}/{$uniq}/{$endpoint}";
 
         $users = $http->request('POST', $url, [
-			'headers' => [
-				'Authorization' => 	'Bearer '.$token					
-			]
-		]);
+            'headers' => [
+                'Authorization' => 'Bearer ' . $token					
+            ]
+        ]);
 
-		//Untuk mendapatkan kode PP
-		$data = json_decode($users->getBody(), true);
-        $author = $data['results']['authors'];
+        $data = json_decode($users->getBody(), true);
+        $authors = $data['results']['authors'];
         
-        // return $data;die;
+        foreach ($authors as $full) {
+            SintaDaftarAuthor::updateOrCreate(
 
-        foreach ($author as $full) {
-
-            $create = Sinta_Daftar_Author::updateorcreate(
             [
                 'id_master' => $full['id'] ?? NULL,
                 'NIDN' => $full['NIDN'] ?? NULL,
@@ -61,9 +49,16 @@ class DaftarAuthorService
                 'affiliation_score_v3_overall' => (int) $full['affiliation_score_v3_overall'] ?? NULL,
                 'affiliation_score_v3_3year' => (int) $full['affiliation_score_v3_3year'] ?? NULL,
             ]);
-        }     
+        }
 
         return $data;
     }
+              
+    public static function getPaginateDaftarAuthor()
+    {
+        $perPage = 10; // Jumlah item per halaman
+        $authors = SintaDaftarAuthor::paginate($perPage);
 
+        return $authors;
+    }
 }
