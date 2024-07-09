@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\GrantSDG;
 use App\Services\ArticleCategoryMappingService;
 use App\Services\ArticleService;
+use App\Services\ContactUsService;
 use App\Services\ContentCategoryService;
 use App\Services\GrantFundsEksternalService;
-use App\Services\GrantSDGService;
 use App\Services\ProductService;
 use App\Services\SDGService;
 use App\Services\UserLogController;
@@ -14,73 +15,75 @@ use App\Services\UserPriviledgeService;
 use App\Services\ViewerLectureService;
 use App\Services\WebPageController;
 use Illuminate\Http\Request;
+use App\Services;
 
 class UpdateController extends Controller
 {
-    public function updateArticleCategoryMapping(Request $request)
-    {
-        return ArticleCategoryMappingService::updateArticleCategoryMapping($request);
+    public static function updateArticleCategoryMapping(Request $request){
+        $updateArticleCategoryMapping = ArticleCategoryMappingService::updateArticleCategoryMapping();
+        return $request;
     }
 
-    public function updateArticle(Request $request)
-    {
-        return ArticleService::updateArticle($request, $request->id);
+    public static function updateArticle(Request $request){
+        $updateArticle = ArticleService::updateArticle();
+        return $request;
     }
 
-    public function updateContactUs(Request $request)
-    {
-        return ProductService::updateContactUs($request, $request->id);
+    public static function updateContactUs(Request $request){
+        $updateContactUs = ContactUsService::updateContactUs();
+        return $request;
     }
 
-    public function updateContentCategory(Request $request)
-    {
-        return ContentCategoryService::updateContentCategory($request);
+    public static function updateContentCategory(Request $request){
+        $updateContentCategory = ContentCategoryService::updateContentCategory();
+        return $request;
     }
 
-    public function updateGarudaFundsEksternal(Request $request)
-    {
-        return GrantFundsEksternalService::updateGrandFundsEksternal($request, $request->id);
+    public static function updateGrandFundsEksternal(Request $request){
+        $updateGrandFundsEksternal = GrantFundsEksternalService::updateGrandFundsEksternal();
+        return $request;
     }
 
-    public function updateGrantSDG(Request $request)
-    {
-        return GrantSDGService::updateGrantSDG($request, $request->id);
+    public static function updateGrantSDG(Request $request){
+        $updateGrantSDG = GrantSDG::updateGrantSDG();
+        return $request;
     }
 
-    public function updateProduct(Request $request)
-    {
-        return ProductService::updateProduct($request, $request->id);
+    public static function updateProduct(Request $request){
+        $updateProduct = ProductService::updateProduct();
+        return $request;
     }
 
-    public function updateSDG(Request $request)
-    {
-        return SDGService::updateSDG($request, $request->id);
+    public static function updateSDG(Request $request,$id){
+        $updateSDG = SDGService::updateSDG();
+        return $request;
     }
 
-    public function updateUserLog(Request $request)
-    {
-        return UserLogController::updateUserLog($request, $request->id);
+    public static function updateUserLog(Request $request){
+        $updateUserLog = UserLogController::updateUserLog();
+        return $request;
     }
 
-    public function updateUserPriviledge(Request $request)
-    {
-        return UserPriviledgeService::updateUserPriviledge($request);
+    public static function updateUserPriviledge(Request $request){
+        $updateUserPriviledge = UserPriviledgeService::updateUserPriviledge();
+        return $request;
     }
 
-    public function updateViewerLecture(Request $request)
-    {
-        return ViewerLectureService::updateViewerLecture($request);
+    public static function updateViewerLecture(Request $request){
+        $updateViewerLecture = ViewerLectureService::updateViewerLecture();
+        return $request;
     }
 
-    public function updateViewerPage(Request $request)
-    {
-        return ViewerPageService::UpdateViewerPage($request);
+    public static function UpdateViewerPage (Request $request){
+        $UpdateViewerPage = ViewerPageService::UpdateViewerPage();
+        return $request;
     }
 
-    public function updateWebPage(Request $request)
-    {
-        return WebPageController::updateWebPage($request, $request->id);
+    public static function updateWebPage(Request $request){
+        $updateWebPage = WebPageController::updateWebPage();
+        return $request;
     }
+
 
 
 }

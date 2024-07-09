@@ -66,3 +66,45 @@ Route::delete('userPriviledge/deleteUserPriviledge', [DeleteController::class, '
 Route::delete('viewerLecture/deleteViewerLecture', [DeleteController::class, 'deleteViewerLecture']);
 Route::delete('viewerPage/deleteViewerPage', [DeleteController::class, 'deleteViewerPage']);
 Route::delete('webPage/deleteWebPage', [DeleteController::class, 'deleteWebPage']);
+
+Route::post('getAllArticleCategoryMapping', [ReadController::class, 'getAllArticleCategoryMapping']);
+Route::post('getAllArticle', [ReadController::class, 'getAllArticle']);
+Route::post('getAuthorBookDoc', [ReadController::class, 'getAuthorBookDoc']);
+Route::post('getAuthorComServiceDoc', [ReadController::class, 'getAuthorComServiceDoc']);
+Route::post('getAuthorGoogle', [ReadController::class, 'getAuthorGoogle']);
+Route::post('getAllContactUs', [ReadController::class, 'getAllContactUs']);
+Route::post('getAuthorComServiceDoc', [ReadController::class, 'getAuthorComServiceDoc']);
+Route::post('getAllContactUs', [ReadController::class, 'getAllContactUs']);
+Route::post('getDaftarAfiliasi', [ReadController::class, 'getDaftarAfiliasi']);
+Route::post('GetDaftarAuthor', [ReadController::class, 'GetDaftarAuthor']);
+Route::post('getDaftarJurnal', [ReadController::class, 'getDaftarJurnal']);
+Route::post('getAuthorGarudaDoc', [ReadController::class, 'getAuthorGarudaDoc']);
+Route::post('getAuthorGoogle', [ReadController::class, 'getAuthorGoogle']);
+Route::post('getAllGrantFundsEksternal', [ReadController::class, 'getAllGrantFundsEksternal']);
+Route::post('getAllGrantSDG', [ReadController::class, 'getAllGrantSDG']);
+Route::post('getAuthorIpr', [ReadController::class, 'getAuthorIpr']);
+Route::post('LoginSinta', [ReadController::class, 'LoginSinta']);
+Route::post('getAllProduct', [ReadController::class, 'getAllProduct']);
+Route::post('getAuthorResearchDoc', [ReadController::class, 'getAuthorResearchDoc']);
+Route::post('getAllSDG', [ReadController::class, 'getAllSDG']);
+Route::post('getAllUserLog', [ReadController::class, 'getAllUserLog']);
+Route::post('getAllUserPriviledge', [ReadController::class, 'getAllUserPriviledge']);
+Route::post('getAllViewerService', [ReadController::class, 'getAllViewerService']);
+Route::post('ReadViewerPage', [ReadController::class, 'ReadViewerPage']);
+Route::post('getAllWebPage', [ReadController::class, 'getAllWebPage']);
+Route::post('getAuthorWosDoc', [ReadController::class, 'getAuthorWosDoc']);
+
+
+Route::post('updateArticleCategoryMapping', [UpdateController::class, 'updateArticleCategoryMapping']);
+Route::post('updateArticle', [UpdateController::class, 'updateArticle']);
+Route::post('updateContactUs', [UpdateController::class, 'updateContactUs']);
+Route::post('updateContentCategory', [UpdateController::class, 'updateContentCategory']);
+Route::post('updateGrandFundsEksternal', [UpdateController::class, 'updateGrandFundsEksternal']);
+Route::post('updateGrantSDG', [UpdateController::class, 'updateGrantSDG']);
+Route::post('updateProduct', [UpdateController::class, 'updateProduct']);
+Route::post('updateSDG', [UpdateController::class, 'updateSDG']);
+Route::post('updateUserLog', [UpdateController::class, 'updateUserLog']);
+Route::post('updateUserPriviledge', [UpdateController::class, 'updateUserPriviledge']);
+Route::post('updateViewerLecture', [UpdateController::class, 'updateViewerLecture']);
+Route::post('UpdateViewerPage', [UpdateController::class, 'UpdateViewerPage']);
+Route::post('updateWebPage', [UpdateController::class, 'updateWebPage']);
