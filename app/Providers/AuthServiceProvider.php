@@ -2,48 +2,29 @@
 
 namespace App\Providers;
 
-// use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-
-use Laravel\Passport\Passport;
-
-use App\Models\SATU\Scopes;
-use App\Models\SATU\Token;
-use App\Models\SATU\RefreshToken;
-use App\Models\SATU\AuthCode;
-use App\Models\SATU\Client;
-use App\Models\SATU\PersonalAccesClient;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The model to policy mappings for the application.
+     * The policy mappings for the application.
      *
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        //
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
     ];
 
     /**
      * Register any authentication / authorization services.
+     *
+     * @return void
      */
-    public function boot(): void
+    public function boot()
     {
-        Passport::useTokenModel(Token::class);
-        Passport::useRefreshTokenModel(RefreshToken::class);
-        Passport::useAuthCodeModel(AuthCode::class);
-        Passport::useClientModel(Client::class);
-        Passport::usePersonalAccessClientModel(PersonalAccessClient::class);
+        $this->registerPolicies();
 
-
-        $var = array();
-        $list = Scopes::get()->toArray();
-
-        foreach ($list as $key => $val) 
-        {
-            $var[$val['name']] = $val['description']; 
-        }
-        Passport::tokensCan($var);
+        //
     }
 }
